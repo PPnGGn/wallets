@@ -1,0 +1,14 @@
+
+.git
+.gitignore
+*.swp
+*.swo
+.env
+bin/
+wallets
+**/__debug_bin
+**/__debug_bin.exe
+**/debug
+**/debug.exe
+**/debug.test
+**/debug.test.exe

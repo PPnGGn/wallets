@@ -1,18 +1,36 @@
-version: "3.9"
-
 services:
   db:
     image: postgres:16
     container_name: testdb
     restart: unless-stopped
+    env_file:
+      - .env
     environment:
-      POSTGRES_USER: testuser
-      POSTGRES_PASSWORD: testpass
-      POSTGRES_DB: testdb
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-wallets}
+      POSTGRES_HOST_AUTH_METHOD: ${DB_AUTH_METHOD:-trust}
     ports:
-      - "5432:5432"
+      - "${DB_PORT:-5432}:5432"
     volumes:
       - dbdata:/var/lib/postgresql/data
+      - ./backups:/backups
+    command: [ "postgres", "-c", "ssl=off" ]
+
+  app:
+    build: .
+    container_name: wallets-app
+    restart: unless-stopped
+    depends_on:
+      - db
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    working_dir: /app
+    volumes:
+      - ./.env:/app/.env
+    command: [ "./wallets-app" ]
 
 volumes:
   dbdata:

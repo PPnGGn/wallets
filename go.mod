@@ -1,4 +1,4 @@
-module test_wallets
+module wallets
 
 go 1.25.0
 
