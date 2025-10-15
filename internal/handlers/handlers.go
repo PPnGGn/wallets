@@ -7,7 +7,6 @@ import (
 	"strconv"
 	"wallets/internal/models"
 	"wallets/internal/service"
-
 	"github.com/labstack/echo/v4"
 )
 
@@ -38,7 +37,7 @@ func (h *WalletHandler) CreateWallet(c echo.Context) error {
 	return nil
 }
 
-// Обработка запроса на получение баланса кошелька
+// Получение баланса кошелька
 func (h *WalletHandler) GetBalance(c echo.Context) error {
 	// Парсинг адреса из пути запроса
 	address := c.Param("address")
@@ -102,6 +101,7 @@ func (h *WalletHandler) CreateTransaction(c echo.Context) error {
 	})
 }
 
+// Получение списка последних транзакций
 func (h *WalletHandler) GetLast(c echo.Context) error {
 	// Получаем параметр count из query-параметров
 	countStr := c.QueryParam("count")

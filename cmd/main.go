@@ -52,7 +52,6 @@ func main() {
 	e.Use(middleware.Recover())
 
 	e.POST("/api/create_wallet", walletHandler.CreateWallet)
-	
 	e.GET("/api/wallet/:address/balance", walletHandler.GetBalance)
 	e.POST("/api/send", walletHandler.CreateTransaction)
 	e.GET("/api/transactions", walletHandler.GetLast)
